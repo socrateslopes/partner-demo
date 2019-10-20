@@ -1,0 +1,9 @@
+Flask==1.1.1
+gevent==1.4.0
+gunicorn==19.9.0
+requests==2.22.0
+coverage==4.5.4
+jsonschema==3.1.1
+graypy==2.1.0
+elasticsearch==7.0.5
+Flask-Log-Request-ID==0.10.0
