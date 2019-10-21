@@ -22,7 +22,7 @@ class ElasticConn:
             return docs[0].get('_source')
         return None
 
-    def closer(self, lat, lon):
+    def closer(self, lat, lng):
         query = {
             "size": 1,
             "query": {
@@ -32,7 +32,7 @@ class ElasticConn:
                         "shape": {
                             "type": "point",
                             "coordinates": [
-                                float(lon),
+                                float(lng),
                                 float(lat)
                             ]
                         }
@@ -43,7 +43,7 @@ class ElasticConn:
                 {
                     "_geo_distance": {
                         "address.coordinates": [
-                            float(lon),
+                            float(lng),
                             float(lat)
                         ],
                         "order": "asc",
