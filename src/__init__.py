@@ -1,5 +1,6 @@
 from src.api.health import health_api
 from src.api.importer import importer_api
+from src.api.parnter import partnerer_api
 import os
 
 from flask import Flask
@@ -16,6 +17,7 @@ def create_app():
 
     app.register_blueprint(health_api)
     app.register_blueprint(importer_api)
+    app.register_blueprint(partnerer_api)
     app.config['APP_NAME'] = os.getenv('APP_NAME')
     app.config['URL_SERVER_PORT'] = int(os.getenv('URL_SERVER_PORT', 5000))
 

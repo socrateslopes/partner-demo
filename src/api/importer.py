@@ -9,6 +9,6 @@ def populate_db():
     response = {"docs_inserted": inserted,
                 "errors": errors}
     if inserted:
-        return jsonify(response), 200
+        return jsonify(response), 201
     else:
         return 'Import operation must be be executed only once', 400
