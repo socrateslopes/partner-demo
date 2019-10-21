@@ -17,8 +17,8 @@ def get_partner(id):
 def find_nearest_partner():
     db = ElasticConn()
     lat = request.args.get('lat')
-    lon = request.args.get('lon')
-    doc = db.closer(lat, lon)
+    lng = request.args.get('lng')
+    doc = db.closer(lat, lng)
     if doc:
         return jsonify(doc), 200
     return 'No partner available for this location', 404
