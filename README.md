@@ -28,6 +28,8 @@ There is not that much logic to validate, so unit tests would be a good fit. Als
 
 - Code deduplication: there are some duplicated code snippets that should be refactored and improved
 
+- **2 partners failed to import**: invalid MultiPolygon shape for them
+
 Full endpoints documentation: TODO
 
 ## Go for it
@@ -57,6 +59,7 @@ make run
 ```
 
 **Now you should be up and running on http://localhost:5000**
+
 ``` curl http://localhost:5000/import``` will populate the database with provided data
 
 ### Testing
