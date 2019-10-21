@@ -1,4 +1,5 @@
 DOCKER_COMPOSE=docker-compose -p ztech -f resources/docker-compose.yml
+DOCKER_COMPOSE_ELK=docker-compose -p ztech-elk -f resources/docker-compose.elk.yml
 DOCKER_COMPOSE_TEST=docker-compose -p ztech -f resources/docker-compose.test.yml
 
 REGISTRY=local
@@ -12,12 +13,17 @@ clean:
 	$(DOCKER_COMPOSE) run app find . -type d -name "__pycache__" -delete
 	$(DOCKER_COMPOSE) run app rm -Rf .coverage target coverage.xml
 	$(DOCKER_COMPOSE) down
+	$(DOCKER_COMPOSE_ELK) down
+	$(DOCKER_COMPOSE_TEST) down
 
 install:
 	$(DOCKER_COMPOSE) build
 
 run:
 	$(DOCKER_COMPOSE) up
+
+elk:
+	$(DOCKER_COMPOSE_ELK) up
 
 test:
 	$(DOCKER_COMPOSE_TEST) build 

@@ -13,7 +13,6 @@ def create_logger(log=None, config=None, handler_filter=None):
     log.handlers = []
 
     if 'LOGSTASH' in config and config['LOGSTASH'] != "":
-        time.sleep(60)
         try:
             port = 12201
             host = config.get('LOGSTASH')
