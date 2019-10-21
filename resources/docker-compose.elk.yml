@@ -1,0 +1,49 @@
+version: '2.1'
+
+networks:
+  ztech-elk:
+    driver: bridge
+
+services:
+  elasticsearch:
+    image: docker.elastic.co/elasticsearch/elasticsearch:7.4.0
+    ports:
+      - 9200:9200
+    networks: 
+      - ztech-elk
+    environment:
+      - xpack.security.enabled=false
+      - ES_JAVA_OPTS=-Xmx512m -Xms512m
+      - http.host=0.0.0.0
+      - discovery.type=single-node
+      - logger.elasticsearchoutput.level=error
+    ulimits:
+      memlock:
+        soft: -1
+        hard: -1
+    volumes:
+      - ../elasticsearch:/usr/share/elasticsearch/data
+
+  logstash:
+    image: docker.elastic.co/logstash/logstash:7.4.0
+    networks: 
+      - ztech-elk
+    volumes: 
+      - ../resources/logstash.gelf.conf:/usr/share/logstash/pipeline/logstash.conf
+    environment:
+      - xpack.monitoring.enabled=false
+    depends_on:
+      - elasticsearch
+
+  kibana:
+    image: docker.elastic.co/kibana/kibana:7.4.0
+    depends_on:
+      - elasticsearch
+    ports:
+      - 5601:5601
+    networks: 
+      - ztech-elk
+    environment:
+      - ELASTICSEARCH_URL=http://elasticsearch:9200
+      - logger.elasticsearchoutput.level=error
+

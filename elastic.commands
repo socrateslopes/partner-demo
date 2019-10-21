@@ -1,0 +1,47 @@
+PUT pdvs
+{
+  "mappings": {
+    "properties": {
+      "address.coordinates": {
+        "type": "geo_point"
+      },
+      "coverageArea": {
+        "type": "geo_shape"
+      }
+    }
+  }
+}
+
+GET /pdvs/_search
+{
+  "size": 1,
+  "query": {
+    "geo_shape": {
+      "coverageArea": {
+        "relation": "intersects",
+        "shape": {
+          "type": "point",
+          "coordinates": [
+            -38.56586,
+            -3.85041
+          ]
+        }
+      }
+    }
+  },
+  "sort": [
+    {
+      "_geo_distance": {
+        "address.coordinates": [
+          -38.56586,
+          -3.85041
+        ],
+        "order": "asc",
+        "unit": "km",
+        "mode": "min",
+        "distance_type": "arc",
+        "ignore_unmapped": true
+      }
+    }
+  ]
+}
