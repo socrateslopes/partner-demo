@@ -60,7 +60,7 @@ make run
 
 **Now you should be up and running on http://localhost:5000**
 
-``` curl http://localhost:5000/import``` will populate the database with provided data
+``` POST http://localhost:5000/import``` will populate the database with provided data
 
 ### Testing
 To test your code and check test coverage, just run
