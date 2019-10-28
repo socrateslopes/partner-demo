@@ -1,6 +1,6 @@
 from src.api.health import health_api
 from src.api.importer import importer_api
-from src.api.parnter import partner_api
+from src.api.partner import partner_api
 import os
 
 from flask import Flask

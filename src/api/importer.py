@@ -11,4 +11,4 @@ def populate_db():
     if inserted:
         return jsonify(response), 201
     else:
-        return 'Import operation must be be executed only once', 400
+        return 'Import operation must be executed only once', 400
