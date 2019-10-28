@@ -1,7 +1,7 @@
 from werkzeug.exceptions import HTTPException, default_exceptions
 from flask import jsonify
 from src import create_app
-from src.utils.flask_logger import FlaskLogger
+from utils.flask_logger import FlaskLogger
 
 app = create_app()
 FlaskLogger(app)

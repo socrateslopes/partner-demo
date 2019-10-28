@@ -1,6 +1,6 @@
 from flask import Blueprint, jsonify, request
-from src.business.es_operator import ElasticConn
-from src.api import validate_schema
+from business.es_operator import ElasticConn
+from api import validate_schema
 
 partner_api = Blueprint('partner_api', __name__, url_prefix='/partner')
 

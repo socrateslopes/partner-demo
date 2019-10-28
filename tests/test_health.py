@@ -1,4 +1,4 @@
-from src.application import app
+from application import app
 import json
 import unittest
 

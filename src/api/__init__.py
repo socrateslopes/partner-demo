@@ -5,7 +5,7 @@ from flask import current_app as app
 from flask import jsonify, request
 from jsonschema import FormatChecker, SchemaError, ValidationError, validate
 
-from src.api.validation import schemas
+from api.validation import schemas
 
 
 def validate_schema(schema_name):

@@ -25,6 +25,8 @@ def import_populate_db():
     errors = []
     for pdv in pdvs:
         document_id = ''.join(filter(str.isdigit, pdv.get('document')))
+        pdv['document'] = document_id
+        del pdv['id']
         try:
             es.index(index=es_idx, body=pdv, id=document_id)
         except Exception as ex:
