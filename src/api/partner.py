@@ -19,6 +19,8 @@ def find_nearest_partner():
     db = ElasticConn()
     lat = request.args.get('lat')
     lng = request.args.get('lng')
+    if not lat or not lng:
+        return jsonify({'error': 'Both lat and lng are required parameters'}), 400
     doc = db.nearest_partner(lat, lng)
     if doc:
         return jsonify(doc), 200
@@ -33,6 +35,6 @@ def create_partner():
     document = req.get('document')
     partner_exists = db.exists(document)
     if partner_exists:
-        return f'Partner with document {document} already exists', 400
+        return jsonify({'error': f'Partner with document {document} already exists'}), 400
     doc = db.create(req)
     return jsonify(doc), 201

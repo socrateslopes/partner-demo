@@ -16,9 +16,11 @@ class ElasticConn:
         return None
 
     def exists(self, document):
+        app.logger.info(f"Checking if document with id {document} exists")
         return self.es.exists(index=self.es_idx,id=document)
 
     def create(self, partner):
+        app.logger.info(f"Trying to create partner")
         return self.es.create(index=self.es_idx, body=partner, id=partner.get('document'))
 
     def nearest_partner(self, lat, lng):
