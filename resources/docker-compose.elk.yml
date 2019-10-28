@@ -1,4 +1,4 @@
-version: '2.1'
+version: '3.7'
 
 networks:
   ztech-elk:
@@ -45,5 +45,5 @@ services:
       - ztech-elk
     environment:
       - ELASTICSEARCH_URL=http://elasticsearch:9200
-      - logger.elasticsearchoutput.level=error
+      - logging.quiet=true
 
