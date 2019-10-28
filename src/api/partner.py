@@ -1,0 +1,38 @@
+from flask import Blueprint, jsonify, request
+from src.business.es_operator import ElasticConn
+from src.api import validate_schema
+
+partner_api = Blueprint('partner_api', __name__, url_prefix='/partner')
+
+
+@partner_api.route('/<int:id>')
+def get_partner(id):
+    db = ElasticConn()
+    doc = db.get(id)
+    if doc:
+        return jsonify(doc), 200
+    return 'Not found', 404
+
+
+@partner_api.route('/nearest')
+def find_nearest_partner():
+    db = ElasticConn()
+    lat = request.args.get('lat')
+    lng = request.args.get('lng')
+    doc = db.nearest_partner(lat, lng)
+    if doc:
+        return jsonify(doc), 200
+    return 'No partner available for this location', 404
+
+
+@partner_api.route('', methods=['POST'])
+@validate_schema("partner")
+def create_partner():
+    db = ElasticConn()
+    req = request.json
+    document = req.get('document')
+    doc = db.get_by_document(document)
+    if doc:
+        return f'Partner with document {document} already exists', 400
+    doc = db.create(req)
+    return jsonify(doc), 201

@@ -22,7 +22,24 @@ class ElasticConn:
             return docs[0].get('_source')
         return None
 
-    def closer(self, lat, lng):
+    def get_by_document(self, document):
+        query = {
+            "size": 1,
+            "query": {
+                "match": {
+                    "document": document
+                }
+            }
+        }
+        docs = self.es.search(self.es_idx, query).get('hits').get('hits')
+        if docs:
+            return docs[0].get('_source')
+        return None
+
+    def create(self, partner):
+        return self.es.index(index=self.es_idx, body=partner)
+
+    def nearest_partner(self, lat, lng):
         query = {
             "size": 1,
             "query": {
