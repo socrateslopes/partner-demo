@@ -8,36 +8,18 @@ class ElasticConn:
         self.es = Elasticsearch(f'{es_host}:9200')
         self.es_idx = app.config['ES_IDX']
 
-    def get(self, id):
-        query = {
-            "size": 1,
-            "query": {
-                "match": {
-                    "id": id
-                }
-            }
-        }
-        docs = self.es.search(self.es_idx, query).get('hits').get('hits')
-        if docs:
-            return docs[0].get('_source')
+    def get(self, document):
+        app.logger.info(f"Querying document with id {document}")
+        partner = self.es.get(index=self.es_idx, id=document)
+        if partner:
+            return partner.get('_source')
         return None
 
-    def get_by_document(self, document):
-        query = {
-            "size": 1,
-            "query": {
-                "match": {
-                    "document": document
-                }
-            }
-        }
-        docs = self.es.search(self.es_idx, query).get('hits').get('hits')
-        if docs:
-            return docs[0].get('_source')
-        return None
+    def exists(self, document):
+        return self.es.exists(index=self.es_idx,id=document)
 
     def create(self, partner):
-        return self.es.index(index=self.es_idx, body=partner)
+        return self.es.create(index=self.es_idx, body=partner, id=partner.get('document'))
 
     def nearest_partner(self, lat, lng):
         query = {

@@ -31,8 +31,8 @@ def create_partner():
     db = ElasticConn()
     req = request.json
     document = req.get('document')
-    doc = db.get_by_document(document)
-    if doc:
+    partner_exists = db.exists(document)
+    if partner_exists:
         return f'Partner with document {document} already exists', 400
     doc = db.create(req)
     return jsonify(doc), 201
