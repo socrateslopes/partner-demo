@@ -7,3 +7,4 @@ jsonschema==3.1.1
 graypy==2.1.0
 elasticsearch>=7.0.0,<8.0.0
 Flask-Log-Request-ID==0.10.0
+Werkzeug==0.16.0
