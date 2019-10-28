@@ -1,0 +1,10 @@
+Fake health check endpoint
+This endpoint is mainly used by the load balancer
+---
+tags:
+  - health
+responses:
+  200:
+    description: A simple JSON with an ok message
+    examples:
+      response: {"ok": true}

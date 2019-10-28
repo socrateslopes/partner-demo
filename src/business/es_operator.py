@@ -21,7 +21,7 @@ class ElasticConn:
 
     def create(self, partner):
         app.logger.info(f"Trying to create partner")
-        return self.es.create(index=self.es_idx, body=partner, id=partner.get('document'))
+        return self.es.create(index=self.es_idx, body=partner, id=partner.get('document')).get('result')
 
     def nearest_partner(self, lat, lng):
         query = {

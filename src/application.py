@@ -1,10 +1,22 @@
-from werkzeug.exceptions import HTTPException, default_exceptions
 from flask import jsonify
+from werkzeug.exceptions import HTTPException, default_exceptions
+
+from flasgger import Swagger
 from src import create_app
 from utils.flask_logger import FlaskLogger
 
 app = create_app()
 FlaskLogger(app)
+
+swagger_template = {
+    'swagger': '2.0',
+    'info': {
+        'title': 'Partners API',
+        'description': 'API for handling partners information',
+        'uiversion': 3
+    }
+}
+swagger = Swagger(app, template=swagger_template)
 
 @app.errorhandler(Exception)
 def handle_error(e):

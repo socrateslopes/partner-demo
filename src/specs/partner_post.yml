@@ -1,0 +1,65 @@
+Creates a partner
+---
+tags:
+  - partner
+parameters:
+  - name: body
+    in: body
+    required: true
+    schema:
+      type: object
+      properties:
+        document:
+          type: 'string'
+          pattern: '(^\d{11}$)|(^\d{14}$)'
+        tradingName:
+          type: 'string'
+        ownerName:
+          type: 'string'
+        address:
+          $ref: "#/definitions/Point2D"
+        coverageArea:
+          $ref: "#/definitions/MultiPolygon"
+definitions:  
+  Point2D:
+    type: array
+    maxItems: 2
+    minItems: 2
+    items:
+      type: number
+  
+  Point:
+    type: object
+    properties:
+      coordinates:
+        $ref: '#/definitions/Point2D'
+      type:
+        type: string
+        enum: 
+          - Point
+
+  MultiPolygon:
+    type: object
+    properties:
+      coordinates:
+        type: array
+        items:
+          type: array
+          items:
+            type: array
+            items:
+              $ref: '#/definitions/Point2D'
+      type:
+        type: string
+        enum: 
+          - MultiPolygon
+responses:
+  201:
+    description: Partner created successfully!
+    examples:
+      response: {'result': 'created'}
+  400:
+    description: User provided invalid data.
+    examples:
+      - error: 
+          {'error': 'Partner with document 12345678900 already exists'}

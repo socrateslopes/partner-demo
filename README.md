@@ -58,7 +58,7 @@ make run
 ```
 
 **Now you should be up and running on http://localhost:5000**
-Docs: 
+Swagger documentation: http://localhost:5000/apidocs
 
 ``` POST http://localhost:5000/import``` will populate the database with provided data
 
